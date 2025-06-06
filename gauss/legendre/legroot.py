@@ -3,7 +3,9 @@ from fractions import Fraction
 from typing import TypeVar
 
 # int * coeff works for both Decimal and Fraction
-T = TypeVar("T",Decimal, Fraction)
+T = TypeVar("T", Decimal, Fraction)
+
+
 def polyderiv(p: list[T]) -> list[T]:
     """Computes the derivative of the given polynomial."""
     return [k * a for k, a in enumerate(p)][1:]

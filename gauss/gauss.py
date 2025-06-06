@@ -1,6 +1,6 @@
+from collections.abc import Callable
 from decimal import Decimal
 from decimal import getcontext as decimalcontext
-from typing import Callable
 
 from .legendre.bonnet import legendre_polynomial
 from .legendre.legroot import poly_rootfind, polyderiv, polyeval
@@ -31,7 +31,10 @@ def compute_gauss_quadrature(n: int, prec: int) -> tuple[list[Decimal], list[Dec
     weights = [Decimal(2) / ((1 - x**2) * polyeval(Pnprime, x) ** 2) for x in knots]
     return knots, weights
 
-def compute_integral(f:Callable[[Decimal | float],Decimal | float], n: int, prec: int):
+
+def compute_integral(
+    f: Callable[[Decimal | float], Decimal | float], n: int, prec: int
+):
     """Computes the n-node quadrature of the function f, on the interval [-1,1] with the precision `prec`.
 
     Args:
@@ -39,10 +42,10 @@ def compute_integral(f:Callable[[Decimal | float],Decimal | float], n: int, prec
         n (int): The number of nodes for the Gaussian Quadrature
         prec (int): the decimal precision of the quadrature rule
     """
-    x,w = compute_gauss_quadrature(n,prec)
-    
+    x, w = compute_gauss_quadrature(n, prec)
+
     sol = Decimal(0)
     for wi, xi in zip(w, x, strict=True):
         sol += wi * Decimal(f(xi))
-    
+
     return sol
