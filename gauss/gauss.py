@@ -49,3 +49,26 @@ def compute_integral(
         sol += wi * Decimal(f(xi))
 
     return sol
+
+
+def compute_composite_integral(
+    f: Callable[[Decimal | float], Decimal | float],
+    num_subdivisions: int,
+    n: int,
+    prec: int,
+):
+    x, w = compute_gauss_quadrature(n, prec)
+
+    # transform quadrature rule
+    subdiv_scale = 2 / Decimal(num_subdivisions)
+    x = [(xk + 1) / Decimal(num_subdivisions) for xk in x]
+    w = [wk / Decimal(num_subdivisions) for wk in w]
+
+    # compute each interval
+
+    left = -1
+    total = 0
+    for _ in range(num_subdivisions):
+        total += sum(wk * Decimal(f(left + xk)) for wk, xk in zip(w, x, strict=True))
+        left += subdiv_scale
+    return total
