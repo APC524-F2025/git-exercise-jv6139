@@ -1,13 +1,20 @@
 from decimal import Decimal
+from fractions import Fraction
+from typing import TypeVar
+
+# int * coeff works for both Decimal and Fraction
+T = TypeVar("T", Decimal, Fraction)
 
 
-def polyderiv(p: list[Decimal]) -> list[Decimal]:
-    """Computes the derivative of the given polynomial"""
+def polyderiv(p: list[T]) -> list[T]:
+    """Computes the derivative of the given polynomial."""
     return [k * a for k, a in enumerate(p)][1:]
 
 
-def polyeval(p, x):
-    """Computes p(x)"""
+def polyeval(p: list[Decimal], x: Decimal | float) -> Decimal:
+    """Computes p(x) for Decimal x and Decimal coefficients of p."""
+    if isinstance(x, float):
+        x = Decimal(x)
     if len(p) == 1:
         return p[0]
     result = p[0] + x * p[1]
