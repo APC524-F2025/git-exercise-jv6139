@@ -1,0 +1,5 @@
+Part 1
+------
+[F] doesn’t show polynomial_zeros.ipynb because a squash records the net diff vs the parent.
+One commit added the notebook; the next removed it and added an ignore rule. Those cancel out,
+so the squashed commit has no net change to that file.
