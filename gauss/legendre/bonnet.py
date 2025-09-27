@@ -1,12 +1,12 @@
 # Compute Legendre polynomials using Bonnet's recursion formula
 # (n+1)P[n+1](x) = (2*n+1) * x * P[n](x) - n * P[n-1](x)
 
-from decimal import Decimal
+from fractions import Fraction
 
 
 def next_bonnet(
-    n: int, Pn_coeffs: list[Decimal], Pnm1_coeffs: list[Decimal]
-) -> list[Decimal]:
+    n: int, Pn_coeffs: list[Fraction], Pnm1_coeffs: list[Fraction]
+) -> list[Fraction]:
     """Computes the next polynomial of the Bonnet recursion.
 
     Args:
@@ -14,12 +14,12 @@ def next_bonnet(
         Pn_coeffs (list): Coefficients of P[n], in increasing degree
         Pnm1_coeffs (list): Coefficients of P[n-1], in increasing degree
     """
-    coef0 = Decimal(n) / Decimal(n + 1)
-    coef1 = Decimal(2 * n + 1) / Decimal(n + 1)
+    coef0 = Fraction(n, n + 1)
+    coef1 = Fraction(2 * n + 1, n + 1)
 
     Pnp1 = [-coef0 * a for a in Pnm1_coeffs]
     # add trailing zeros for x^n and x^(n+1)
-    Pnp1.extend([Decimal(0)] * 2)
+    Pnp1.extend([Fraction(0)] * 2)
 
     for i, ai in enumerate(Pn_coeffs):
         # off-by-one handles the multiplication by x
@@ -28,20 +28,20 @@ def next_bonnet(
     return Pnp1
 
 
-def legendre_polynomial(n: int) -> list[Decimal]:
+def legendre_polynomial(n: int) -> list[Fraction]:
     """Computes the nth degree legendre polynomial using Bonnet Recursion.
 
     Args:
         n (int): the degree to compute
 
     Returns:
-        list[Decimal]: The coefficients in increasing degree of Pn
+        list[Fraction]: The coefficients in increasing degree of Pn
     """
-    poly0 = [Decimal(1)]  # P[0] = 1
+    poly0 = [Fraction(1)]  # P[0] = 1
     if n == 0:
         return poly0
 
-    poly1 = [Decimal(0), Decimal(1)]  # P[1] = x
+    poly1 = [Fraction(0), Fraction(1)]  # P[1] = x
     if n == 1:
         return poly1
 

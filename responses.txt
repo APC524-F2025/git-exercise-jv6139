@@ -3,3 +3,20 @@ Part 1
 [F] doesn’t show polynomial_zeros.ipynb because a squash records the net diff vs the parent.
 One commit added the notebook; the next removed it and added an ignore rule. Those cancel out,
 so the squashed commit has no net change to that file.
+
+Part 2
+------
+I chose Frank’s orthogonality test as the primary check because it validates a
+core property of the Legendre polynomials. I kept/updated the analytic-coefficient test to be
+Decimal/Fraction safe so it still checks specific low-degree polynomials with a
+precision tolerance. use aprox, might as well lol
+
+Merge choice: I merged orthotest into the rational legendre branch, resolved the test
+conflict, renamed the orthogonality test for pytest discovery, and updated the
+analytic test to compare Fractions via exact Decimal conversion.
+
+Part 3
+------
+Frank’s point is that LaTeX makes it easy to split a report into separate
+section files and then combine them. If every section was in its own file then everyone can edit easily without stepping into
+eachothers changes. That way merging would be cleaner and the main file would just stitch things together
