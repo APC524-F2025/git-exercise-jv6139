@@ -1,0 +1,10 @@
+Part 2
+------
+I chose Frank’s orthogonality test as the primary check because it validates a
+core property of the Legendre polynomials. I kept/updated the analytic-coefficient test to be
+Decimal/Fraction-safe so it still checks specific low-degree polynomials with a
+precision tolerance.
+
+Merge choice: I merged orthotest into the rational legendre branch, resolved the test
+conflict, renamed the orthogonality test for pytest discovery, and updated the
+analytic test to compare Fractions via exact Decimal conversion.
