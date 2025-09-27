@@ -1,17 +1,7 @@
 from decimal import Decimal
-from decimal import getcontext as decimalcontext
 from itertools import zip_longest
 
-import pytest
-
 from gauss.legendre.bonnet import legendre_polynomial
-
-
-@pytest.fixture(params=[5, 10, 100, 1000])
-def precision(request):
-    prec = request.param
-    decimalcontext().prec = prec + 1
-    return prec
 
 
 def _assert_poly_close(p, ptrue, prec):
